@@ -1,6 +1,6 @@
 import React, { useEffect, createContext, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { auth } from "../Firebase/config";
+import { auth } from "../Firebase/Config";
 import * as ROUTER from "../Routes/index";
 import { Spin } from "antd";
 export const AuthProvider = createContext();
