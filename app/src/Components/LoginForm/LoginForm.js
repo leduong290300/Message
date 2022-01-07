@@ -6,12 +6,21 @@ import {
   RightOutlined,
 } from "@ant-design/icons";
 
-import firebase, { auth } from "../../Firebase/config";
-
+import firebase, { auth } from "../../Firebase/Config";
+import { createNewUser } from "../../Firebase/Service";
 const fbProvider = new firebase.auth.FacebookAuthProvider();
 export default function LoginForm() {
-  const loginWithFacebook = () => {
-    auth.signInWithPopup(fbProvider);
+  const loginWithFacebook = async () => {
+    const { additionalUserInfo, user } = await auth.signInWithPopup(fbProvider);
+    if (additionalUserInfo.isNewUser) {
+      createNewUser("users", {
+        displayName: user.displayName,
+        email: user.email,
+        photoURL: user.photoURL,
+        uid: user.uid,
+        providerId: additionalUserInfo.providerId,
+      });
+    }
   };
 
   return (
