@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useMemo } from "react";
 
 import {
   UserAddOutlined,
@@ -19,6 +19,9 @@ import {
 
 import MessageList from "../MessageList/MessageList";
 import { AppProvider } from "../../Context/AppContext";
+import { AuthProvider } from "../../Context/AuthContext";
+import { createNewMessage } from "../../Firebase/Service";
+import useFirebase from "../../Hooks/useFirebase";
 export default function ScreenChat() {
   const {
     selectedRoom,
@@ -26,6 +29,36 @@ export default function ScreenChat() {
     setIsVisiableModalInviteMember,
     isSelectedRoom,
   } = useContext(AppProvider);
+  const {
+    user: { uid, photoURL, displayName },
+  } = useContext(AuthProvider);
+
+  const [form] = Form.useForm();
+
+  const [message, setMessage] = useState("");
+  const handleChangeMessage = (e) => {
+    setMessage(e.target.value);
+  };
+  const handleSendMessage = () => {
+    createNewMessage("message", {
+      text: message,
+      uid,
+      photoURL,
+      roomId: selectedRoom.id,
+      displayName,
+    });
+    form.resetFields(["message"]);
+  };
+
+  const conditionMessage = useMemo(
+    () => ({
+      fieldName: "roomId",
+      operator: "==",
+      compareValue: selectedRoom.id,
+    }),
+    [selectedRoom.id],
+  );
+  const listMessage = useFirebase("message", conditionMessage);
 
   return (
     <Container>
@@ -61,34 +94,25 @@ export default function ScreenChat() {
           </Header>
           <Content>
             <Message>
-              <MessageList
-                message="text"
-                photoURL={null}
-                displayName="duong"
-                createdAt={121231234}
-              />
-              <MessageList
-                message="text"
-                photoURL={null}
-                displayName="duong"
-                createdAt={121231234}
-              />
-              <MessageList
-                message="text"
-                photoURL={null}
-                displayName="duong"
-                createdAt={121231234}
-              />
-              <MessageList
-                message="text"
-                photoURL={null}
-                displayName="duong"
-                createdAt={121231234}
-              />
+              {listMessage.map((message) => (
+                <MessageList
+                  key={message.id}
+                  message={message.text}
+                  photoURL={message.photoURL}
+                  displayName={message.displayName}
+                  createdAt={message.createdAt}
+                />
+              ))}
             </Message>
-            <FormStyle>
-              <Form.Item>
-                <Input bordered={false} autoComplete="off" />
+            <FormStyle form={form}>
+              <Form.Item name="message">
+                <Input
+                  bordered={false}
+                  autoComplete="off"
+                  placeholder="Nhập tin nhắn"
+                  onChange={handleChangeMessage}
+                  onPressEnter={handleSendMessage}
+                />
               </Form.Item>
               <Tooltip title="Gửi hình ảnh">
                 <Button icon={<FileImageOutlined />} />
@@ -98,7 +122,11 @@ export default function ScreenChat() {
               </Tooltip>
 
               <Button icon={<AudioOutlined />} />
-              <Button icon={<SendOutlined />} type="primary">
+              <Button
+                icon={<SendOutlined />}
+                type="primary"
+                onClick={handleSendMessage}
+              >
                 Gui
               </Button>
             </FormStyle>

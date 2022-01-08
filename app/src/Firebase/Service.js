@@ -18,6 +18,15 @@ export const createNewRoom = (collection, data) => {
   });
 };
 
+// MODULE Create message
+export const createNewMessage = (collection, data) => {
+  const query = database.collection(collection);
+  query.add({
+    ...data,
+    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+  });
+};
+
 //MODULE Tao keywords cho displayName, su dung cho search
 export const generateKeywords = (displayName) => {
   // liet ke tat cac hoan vi. vd: name = ["David", "Van", "Teo"]
