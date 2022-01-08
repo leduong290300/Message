@@ -6,6 +6,7 @@ import WindowChat from "./Pages/WindowChat/WindowChat";
 import AuthProvider from "./Context/AuthContext";
 import AppProvider from "./Context/AppContext";
 import CreateRoom from "./Components/Modals/CreateRoom";
+import InviteMembers from "./Components/Modals/InviteMembers";
 export default function App() {
   return (
     <>
@@ -21,6 +22,7 @@ export default function App() {
               </Route>
             </Switch>
             <CreateRoom />
+            <InviteMembers />
           </AppProvider>
         </AuthProvider>
       </Router>

@@ -7,7 +7,7 @@ import {
 } from "@ant-design/icons";
 
 import firebase, { auth } from "../../Firebase/Config";
-import { createNewUser } from "../../Firebase/Service";
+import { createNewUser, generateKeywords } from "../../Firebase/Service";
 const fbProvider = new firebase.auth.FacebookAuthProvider();
 export default function LoginForm() {
   const loginWithFacebook = async () => {
@@ -19,6 +19,7 @@ export default function LoginForm() {
         photoURL: user.photoURL,
         uid: user.uid,
         providerId: additionalUserInfo.providerId,
+        keywords: generateKeywords(user.displayName),
       });
     }
   };
