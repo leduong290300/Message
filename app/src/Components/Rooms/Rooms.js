@@ -5,7 +5,8 @@ import { PanelStyled, Link } from "./Styles/RoomStyle";
 import { AppProvider } from "../../Context/AppContext";
 
 export default function Rooms() {
-  const { rooms, setIsVisiableModalCreateRoom } = useContext(AppProvider);
+  const { rooms, setIsVisiableModalCreateRoom, setIsSelectedRoom } =
+    useContext(AppProvider);
   const handleAddRoom = () => {
     setIsVisiableModalCreateRoom(true);
   };
@@ -13,7 +14,9 @@ export default function Rooms() {
     <Collapse ghost defaultActiveKey={["1"]}>
       <PanelStyled header="Rooms List" key="1">
         {rooms.map((room) => (
-          <Link key={room.id}>{room.name}</Link>
+          <Link key={room.id} onClick={() => setIsSelectedRoom(room.id)}>
+            {room.name}
+          </Link>
         ))}
 
         <Button
