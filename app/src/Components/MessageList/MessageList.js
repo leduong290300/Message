@@ -1,7 +1,8 @@
 import React from "react";
-import { Avatar, Typography } from "antd";
+import { Avatar, Typography, Space, Image } from "antd";
 import { Container } from "./Styles/MessageListStyle";
 import { formatRelative } from "date-fns/esm";
+
 function formatDate(seconds) {
   let format = "";
   if (seconds) {
@@ -11,10 +12,11 @@ function formatDate(seconds) {
   return format;
 }
 export default function MessageList({
-  message,
   displayName,
   createdAt,
   photoURL,
+  messageText,
+  messageImage,
 }) {
   return (
     <Container>
@@ -28,7 +30,16 @@ export default function MessageList({
         </Typography.Text>
       </div>
       <div>
-        <Typography.Text className="content">{message}</Typography.Text>
+        <Typography.Text className="content">{messageText}</Typography.Text>
+        <Space size={12}>
+          <Image
+            width={200}
+            src={messageImage}
+            placeholder={
+              <Image preview={false} src={messageImage} width={200} />
+            }
+          />
+        </Space>
       </div>
     </Container>
   );

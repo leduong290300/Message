@@ -11,6 +11,10 @@ export default function AppContext({ children }) {
   const [isVisiableModalInviteMember, setIsVisiableModalInviteMember] =
     useState(false);
 
+  // TODO Ẩn/hiện modal upload file
+  const [isVisiableModalUploadFile, setIsVisiableModalUploadFile] =
+    useState(false);
+
   // TODO: Chọn phòng chat
   const [isSelectedRoom, setIsSelectedRoom] = useState("");
   const {
@@ -56,6 +60,8 @@ export default function AppContext({ children }) {
         setIsSelectedRoom,
         isVisiableModalInviteMember,
         setIsVisiableModalInviteMember,
+        isVisiableModalUploadFile,
+        setIsVisiableModalUploadFile,
       }}
     >
       {children}

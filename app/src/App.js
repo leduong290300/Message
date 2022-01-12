@@ -7,6 +7,7 @@ import AuthProvider from "./Context/AuthContext";
 import AppProvider from "./Context/AppContext";
 import CreateRoom from "./Components/Modals/CreateRoom";
 import InviteMembers from "./Components/Modals/InviteMembers";
+import UploadFile from "./Components/Modals/UploadFile";
 export default function App() {
   return (
     <>
@@ -23,6 +24,7 @@ export default function App() {
             </Switch>
             <CreateRoom />
             <InviteMembers />
+            <UploadFile />
           </AppProvider>
         </AuthProvider>
       </Router>
