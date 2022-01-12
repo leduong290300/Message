@@ -3,7 +3,6 @@ import React, { useContext, useState, useMemo } from "react";
 import {
   UserAddOutlined,
   SendOutlined,
-  AudioOutlined,
   MehOutlined,
   FileImageOutlined,
 } from "@ant-design/icons";
@@ -28,6 +27,7 @@ export default function ScreenChat() {
     members,
     setIsVisiableModalInviteMember,
     isSelectedRoom,
+    setIsVisiableModalUploadFile,
   } = useContext(AppProvider);
   const {
     user: { uid, photoURL, displayName },
@@ -95,13 +95,16 @@ export default function ScreenChat() {
           <Content>
             <Message>
               {listMessage.map((message) => (
-                <MessageList
-                  key={message.id}
-                  message={message.text}
-                  photoURL={message.photoURL}
-                  displayName={message.displayName}
-                  createdAt={message.createdAt}
-                />
+                <>
+                  <MessageList
+                    key={message.id}
+                    messageText={message.text}
+                    messageImage={message.image}
+                    photoURL={message.photoURL}
+                    displayName={message.displayName}
+                    createdAt={message.createdAt}
+                  />
+                </>
               ))}
             </Message>
             <FormStyle form={form}>
@@ -115,13 +118,15 @@ export default function ScreenChat() {
                 />
               </Form.Item>
               <Tooltip title="Gửi hình ảnh">
-                <Button icon={<FileImageOutlined />} />
+                <Button
+                  icon={<FileImageOutlined />}
+                  onClick={() => setIsVisiableModalUploadFile(true)}
+                />
               </Tooltip>
               <Tooltip title="Gửi sticker">
                 <Button icon={<MehOutlined />} />
               </Tooltip>
 
-              <Button icon={<AudioOutlined />} />
               <Button
                 icon={<SendOutlined />}
                 type="primary"
