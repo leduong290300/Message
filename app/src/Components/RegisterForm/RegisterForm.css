@@ -1,5 +1,4 @@
 @import url("https://fonts.googleapis.com/css?family=Raleway:400,700");
-
 .container {
   display: flex;
   align-items: center;
@@ -73,18 +72,18 @@
   border-radius: 60px;
 }
 
-.login {
+.register {
   width: 320px;
   padding: 30px;
-  padding-top: 156px;
+  padding-top: 110px;
 }
 
-.login__field {
+.register__field {
   padding: 20px 0px;
   position: relative;
 }
 
-.login__input {
+.register__input {
   border: none;
   border-bottom: 2px solid #d1d1d4;
   background: none;
@@ -95,14 +94,14 @@
   transition: 0.2s;
 }
 
-.login__input:active,
-.login__input:focus,
-.login__input:hover {
+.register__input:active,
+.register__input:focus,
+.register__input:hover {
   outline: none;
   border-bottom-color: #6a679e;
 }
 
-.login__submit {
+.register__submit {
   background: #fff;
   font-size: 14px;
   margin-top: 30px;
@@ -120,9 +119,9 @@
   transition: 0.2s;
 }
 
-.login__submit:active,
-.login__submit:focus,
-.login__submit:hover {
+.register__submit:active,
+.register__submit:focus,
+.register__submit:hover {
   border-color: #6a679e;
   outline: none;
 }
@@ -132,13 +131,12 @@
   margin-left: auto;
   color: #7875b5;
 }
-
-.register_account {
+.login_account {
   position: absolute;
   left: 40px;
   display: flex;
 }
-.register_account__link {
+.login_account__link {
   margin-left: 10px;
   text-shadow: 0px 0px 8px #7875b5;
   font-size: 16px;

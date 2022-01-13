@@ -1,0 +1,8 @@
+#register {
+  background: linear-gradient(90deg, #c7c5f4, #776bcc);
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Raleway, sans-serif;
+  overflow: hidden;
+}
