@@ -77,7 +77,7 @@ export default function ScreenChat() {
                 type="text"
                 onClick={() => setIsVisiableModalInviteMember(true)}
               >
-                Moi
+                Mời
               </Button>
               <Avatar.Group size="small" maxCount={2}>
                 {members.map((member) => (
@@ -132,7 +132,7 @@ export default function ScreenChat() {
                 type="primary"
                 onClick={handleSendMessage}
               >
-                Gui
+                Gửi
               </Button>
             </FormStyle>
           </Content>
