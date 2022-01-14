@@ -1,5 +1,5 @@
 import styled from "styled-components/macro";
-
+import { Button } from "antd";
 export const Container = styled.div`
   display: flex;
   justify-content: space-between;
@@ -9,5 +9,18 @@ export const Container = styled.div`
   .username {
     color: white;
     margin-left: 5px;
+  }
+`;
+export const Options = styled.div``;
+export const ButtonCover = styled(Button)`
+  background: transparent;
+  outline: none;
+  border: none;
+  color: #fff;
+  margin: 0 5px;
+  &:hover,
+  &:focus,
+  &:active {
+    background: transparent;
   }
 `;

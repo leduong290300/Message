@@ -1,28 +1,46 @@
-import React, { useContext, useState, useMemo } from "react";
+import React, { useContext, useState } from "react";
 import { Modal, Form, Select, Spin, Avatar } from "antd";
 import { AppProvider } from "../../Context/AppContext";
 import { debounce } from "lodash";
 import { database } from "../../Firebase/Config";
 // TODO Xử lí việc search
-function DebounceSelect({ fetchOptions, debounceTimeout = 300, ...props }) {
+function DebounceSelect({
+  fetchOptions,
+  debounceTimeout = 300,
+  currentMember,
+  ...props
+}) {
+  // Search: abcddassdfasdf
+
   const [fetching, setFetching] = useState(false);
   const [options, setOptions] = useState([]);
-  const debounceFetch = useMemo(() => {
+
+  const debounceFetcher = React.useMemo(() => {
     const loadOptions = (value) => {
       setOptions([]);
       setFetching(true);
-      fetchOptions(value, props.currentMember).then((newOptions) => {
+
+      fetchOptions(value, currentMember).then((newOptions) => {
         setOptions(newOptions);
         setFetching(false);
       });
     };
+
     return debounce(loadOptions, debounceTimeout);
-  }, [debounceTimeout, fetchOptions]);
+  }, [debounceTimeout, fetchOptions, currentMember]);
+
+  React.useEffect(() => {
+    return () => {
+      // clear when unmount
+      setOptions([]);
+    };
+  }, []);
+
   return (
     <Select
       labelInValue
       filterOption={false}
-      onSearch={debounceFetch}
+      onSearch={debounceFetcher}
       notFoundContent={fetching ? <Spin size="small" /> : null}
       {...props}
     >
@@ -31,14 +49,14 @@ function DebounceSelect({ fetchOptions, debounceTimeout = 300, ...props }) {
           <Avatar size="small" src={opt.photoURL}>
             {opt.photoURL ? "" : opt.label?.charAt(0)?.toUpperCase()}
           </Avatar>
-          {`${opt.label}`}
+          {` ${opt.label}`}
         </Select.Option>
       ))}
     </Select>
   );
 }
 // MODULE Thực hiên việc tìm kiếm
-async function fetchUserList({ search, currentMember }) {
+async function fetchUserList(search, currentMember) {
   return database
     .collection("users")
     .where("keywords", "array-contains", search)
@@ -48,7 +66,7 @@ async function fetchUserList({ search, currentMember }) {
     .then((snapshot) => {
       return snapshot.docs
         .map((doc) => ({
-          lable: doc.data().displayName,
+          label: doc.data().displayName,
           value: doc.data().uid,
           photoURL: doc.data().photoURL,
         }))
@@ -64,29 +82,34 @@ export default function InviteMembers() {
     selectedRoom,
   } = useContext(AppProvider);
   const [form] = Form.useForm();
+  const [value, setValue] = useState([]);
   const handleOk = () => {
     form.resetFields();
-    const roomRef = database.collection("users").doc(isSelectedRoom);
+    setValue([]);
+    const roomRef = database.collection("rooms").doc(isSelectedRoom);
     roomRef.update({
       members: [...selectedRoom.members, ...value.map((val) => val.value)],
     });
+    setIsVisiableModalInviteMember(false);
   };
   const handleCancel = () => {
     form.resetFields();
+    setValue([]);
     setIsVisiableModalInviteMember(false);
   };
-  const [value, setValue] = useState([]);
   return (
     <Modal
       title="Mời thêm thành viên"
       visible={isVisiableModalInviteMember}
       onOk={handleOk}
       onCancel={handleCancel}
+      destroyOnClose={true}
     >
       <Form form={form} layout="vertical">
         <DebounceSelect
           mode="multiple"
           label="Tên các thành viên"
+          name="search"
           value={value}
           fetchOptions={fetchUserList}
           placeholder="Nhập tên thành vien"

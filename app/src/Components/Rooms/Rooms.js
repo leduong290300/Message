@@ -1,33 +1,38 @@
 import React, { useContext } from "react";
-import { Collapse, Button } from "antd";
-import { PlusSquareOutlined } from "@ant-design/icons";
-import { PanelStyled, Link } from "./Styles/RoomStyle";
+import { Collapse, List } from "antd";
+
+import {
+  PanelStyled,
+  Link,
+  Meta,
+  Container,
+  ContainerList,
+  ContainerItem,
+  ContainerName,
+} from "./Styles/RoomStyle";
 import { AppProvider } from "../../Context/AppContext";
 
 export default function Rooms() {
-  const { rooms, setIsVisiableModalCreateRoom, setIsSelectedRoom } =
-    useContext(AppProvider);
-  const handleAddRoom = () => {
-    setIsVisiableModalCreateRoom(true);
-  };
-  return (
-    <Collapse ghost defaultActiveKey={["1"]}>
-      <PanelStyled header="Rooms List" key="1">
-        {rooms.map((room) => (
-          <Link key={room.id} onClick={() => setIsSelectedRoom(room.id)}>
-            {room.name}
-          </Link>
-        ))}
+  const { rooms, setIsSelectedRoom } = useContext(AppProvider);
 
-        <Button
-          className="add"
-          type="text"
-          icon={<PlusSquareOutlined />}
-          onClick={handleAddRoom}
-        >
-          Thêm phòng{" "}
-        </Button>
-      </PanelStyled>
-    </Collapse>
+  return (
+    // <Collapse ghost defaultActiveKey={["1"]}>
+    //   <PanelStyled header="Rooms List" key="1">
+    //     {rooms.map((room) => (
+    //       <Link key={room.id} onClick={() => setIsSelectedRoom(room.id)}>
+    //         {room.name}
+    //       </Link>
+    //     ))}
+    //   </PanelStyled>
+    // </Collapse>
+    <Container>
+      <ContainerList>
+        {rooms.map((room) => (
+          <ContainerItem key={room.id}>
+            <ContainerName>{room.name}</ContainerName>
+          </ContainerItem>
+        ))}
+      </ContainerList>
+    </Container>
   );
 }
