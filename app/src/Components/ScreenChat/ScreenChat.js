@@ -138,13 +138,7 @@ export default function ScreenChat() {
           </Content>
         </>
       ) : (
-        <Alert
-          message="Hãy chọn phòng"
-          type="info"
-          showIcon
-          style={{ margin: 5 }}
-          closable
-        />
+        <Alert message="Hãy chọn phòng" type="info" showIcon closable />
       )}
     </Container>
   );

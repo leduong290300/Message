@@ -5,7 +5,8 @@ export const Container = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 12px 16px;
-  border-bottom: 1px solid rgba(82, 38, 83);
+  border-bottom: 1px solid #e1e4ea;
+  background: #0091ff;
   .username {
     color: white;
     margin-left: 5px;
@@ -22,5 +23,9 @@ export const ButtonCover = styled(Button)`
   &:focus,
   &:active {
     background: transparent;
+  }
+  ,
+  &:hover {
+    color: #fff;
   }
 `;
