@@ -7,6 +7,7 @@ const Container = styled.div`
   border-right: 1px solid #e1e4ea;
   color: #fff;
   height: 100vh;
+  background: #7c78b8;
 `;
 export default function SideBar() {
   return (
