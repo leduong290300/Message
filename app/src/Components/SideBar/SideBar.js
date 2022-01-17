@@ -4,7 +4,7 @@ import Rooms from "../Rooms/Rooms";
 import UserInfo from "../UserInfo/UserInfo";
 import styled from "styled-components/macro";
 const Container = styled.div`
-  background: #3f0e40;
+  border-right: 1px solid #e1e4ea;
   color: #fff;
   height: 100vh;
 `;

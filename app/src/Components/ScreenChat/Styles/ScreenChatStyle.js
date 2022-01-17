@@ -6,7 +6,7 @@ export const Header = styled.div`
   height: 56px;
   padding: 0 16px;
   align-items: center;
-  border-bottom: 1px solid rgba(230, 230, 230);
+  border-bottom: 1px solid #e1e4ea;
   .header {
     &__info {
       display: flex;

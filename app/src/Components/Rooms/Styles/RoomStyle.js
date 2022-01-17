@@ -26,13 +26,21 @@ export const ContainerList = styled.ul`
   list-style: none;
   display: block;
   margin-bottom: 0;
-  padding: 10px 0 10px 20px;
+  height: 50px;
+  width: 100%;
+  padding-left: 0;
+  color: #333;
   &:hover {
     cursor: pointer;
+    background: #e5efff;
   }
 `;
 export const ContainerItem = styled.li`
   width: 100%;
   font-size: 16px;
+  display: block;
+  height: 100%;
+  line-height: 50px;
+  padding-left: 20px;
 `;
 export const ContainerName = styled.span``;
