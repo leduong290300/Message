@@ -6,7 +6,7 @@ export const Container = styled.div`
   align-items: center;
   padding: 12px 16px;
   border-bottom: 1px solid #e1e4ea;
-  background: #0091ff;
+
   .username {
     color: white;
     margin-left: 5px;

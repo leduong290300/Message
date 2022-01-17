@@ -19,7 +19,7 @@ export default function Rooms() {
             key={room.id}
             onClick={() => setIsSelectedRoom(room.id)}
             style={{
-              background: room.id === isSelectedRoom ? "#e5efff" : "#fff",
+              fontWeight: room.id === isSelectedRoom ? "bold" : "normal",
             }}
           >
             <ContainerName>{room.name}</ContainerName>
